@@ -1,0 +1,25 @@
+HR Project: Defining Tenure
+
+To redefine the y-variable as the "Attrition Rate" calculated based on a 5-year tenure equation, you can create a custom calculation in your ggplot code. Assuming you want to visualize the attrition rate as defined by the proportion of employees leaving within a 5-year period, here's how you can modify the plot:
+
+```r
+# Example: Bar plot showing attrition rate based on 5-year tenure calculation
+# Assuming your dataset has a variable 'Tenure' that represents tenure in years
+
+# Calculate attrition rate based on 5-year tenure
+data <- data %>%
+  mutate(Attrition_Rate = sum(Attrition) / sum(Tenure >= 5))
+
+# Plotting attrition rate based on 5-year tenure
+ggplot(data, aes(x = Education, y = Attrition_Rate, fill = Attrition)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Attrition Rate Based on 5-Year Tenure",
+       x = "Education Level", y = "Attrition Rate",
+       fill = "Attrition")
+```
+
+In this example:
+- `mutate()` calculates the `Attrition_Rate` by dividing the sum of attrition cases (`Attrition`) by the total number of employees (`sum(Tenure >= 5)`).
+- `ggplot()` then creates a bar plot where the x-axis represents the Education Level, the y-axis represents the Attrition Rate calculated based on the 5-year tenure, and the fill color indicates whether attrition occurred or not.
+
+Ensure you adjust the `Tenure` variable name and the calculation logic based on how tenure is represented in your actual dataset. This approach allows you to visualize the attrition rate defined by a specific tenure period using R and ggplot2.
